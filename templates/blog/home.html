@@ -8,12 +8,12 @@
     <h1>Hello {{name}}!</h1>
 
     <ul>
-        {% for language in languages %}
+        {% for category in categories %}
         <li>
-            {% if language == 'PHP' %}
-                <b>{{language}}</b>
+            {% if category == 'PHP' %}
+                <b>{{category.name}}</b>
             {% else %}
-                <i>{{language}}</i>
+                <i>{{category.name}}</i>
             {% endif %}
         </li>
         {% endfor %}
