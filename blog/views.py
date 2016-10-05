@@ -9,9 +9,9 @@ def home(request):
     #return HttpResponse("Hello World")
 
     name = "Aline"
-    categories = {'PHP', 'Java', 'Ruby'}
-    for category in categories:
-        Category.objects.create(name=category)
+    #categories = {'PHP', 'Java', 'Ruby'}
+    #for category in categories:
+    #    Category.objects.create(name=category)
 
     all_categories = Category.objects.all()
 
