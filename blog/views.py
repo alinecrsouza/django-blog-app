@@ -15,13 +15,13 @@ def home(request):
 
     all_categories = Category.objects.all()
 
-    # category_python = Category.objects.get(id = 1)
-    post = Post.objects.get(pk = 1)
-
+    # category_python = Category.objects.get(id = 5)
+    #posts = Post.objects.all()
+    posts = Post.objects.filter(status='Published')
 
     # post = Post()
-    # post.name = "My First very Post"
-    # post.content = "Content of my first Post"
+    # post.name = "Show Post 3"
+    # post.content = "Content 3"
     # post.status = "Published"
     # post.category = category_python
     # post.save()
@@ -30,7 +30,7 @@ def home(request):
     context = {
         'name': name,
         'categories': all_categories,
-        'post': post,
+        'posts': posts,
     }
 
     #Category.objects.destroy(id=1)

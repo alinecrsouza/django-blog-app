@@ -1,25 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Blog</title>
-</head>
-<body>
-    <h1>Hello {{name}}!</h1>
+{% extends "blog/layout.html" %}
 
-    <ul>
-        {% for category in categories %}
-        <li>
-            {% if category == 'PHP' %}
-                <b>{{category.name}}</b>
-            {% else %}
-                <i>{{category.name}}</i>
-            {% endif %}
-        </li>
-        {% endfor %}
-    </ul>
-<hr>
-<h2>{{ post.name }} ({{ post.category.name }})</h2>
-<p>{{ post.content}}</p>
-</body>
-</html>
+{% block title %} Aline's Blog {% endblock %}
+
+{% block content %}
+<section>
+    {% for post in posts %}
+        <article>
+            <h2>{{ post.name }} ({{ post.category.name }})</h2>
+            <p>{{ post.content}}</p>
+            <p>{{ post.status}}</p>
+        </article>
+    {% endfor %}
+</section>
+{% endblock %}
