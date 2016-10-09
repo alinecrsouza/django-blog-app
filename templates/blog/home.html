@@ -1,14 +1,36 @@
 {% extends "blog/layout.html" %}
-
-{% block title %} Aline's Blog {% endblock %}
-
 {% block content %}
+<h1 class="page-header">
+    GoGeek
+    <small>Secondary Text</small>
+</h1>
+
 <section>
     {% for post in posts %}
-        <article>
-            <h2>{{ post.name }} ({{ post.category.name }})</h2>
-            <p>{{ post.content}}</p>
-        </article>
+    <article>
+        <h2>
+            <a href="#">{{ post.name }}</a>
+        </h2>
+        <p class="lead">
+            by <a href="index.php">Start Bootstrap</a>
+        </p>
+        <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM</p>
+        <hr>
+        <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+        <hr>
+        <p>{{ post.content}}</p>
+        <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+    </article>
     {% endfor %}
 </section>
+
+<!-- Pager -->
+<ul class="pager">
+    <li class="previous">
+        <a href="#">&larr; Older</a>
+    </li>
+    <li class="next">
+        <a href="#">Newer &rarr;</a>
+    </li>
+</ul>
 {% endblock %}
