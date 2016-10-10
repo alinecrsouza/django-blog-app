@@ -1,39 +1,28 @@
 from django.http import HttpResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 
-# Create your views here.
 from blog.models import Category, Post
 
-
 def home(request):
-    #return HttpResponse("Hello World")
-
-    name = "Aline"
-    # categories = {'PHP', 'Java', 'Ruby'}
-    # for category in categories:
-    #    Category.objects.create(name=category)
-
     all_categories = Category.objects.all()
+    posts_list = Post.objects.filter(status='Published').order_by('-created_at')
+    paginator = Paginator(posts_list, 3)  # Show 3 posts per page
 
-    # category_python = Category.objects.get(id = 5)
-    # posts = Post.objects.all()
-    posts = Post.objects.filter(status='Published')
-
-    # post = Post()
-    # post.name = "Show Post 3"
-    # post.content = "Content 3"
-    # post.status = "Published"
-    # post.category = category_python
-    # post.save()
-
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        posts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        posts = paginator.page(paginator.num_pages)
 
     context = {
-        'name': name,
         'categories': all_categories,
         'posts': posts,
     }
-
-    #Category.objects.destroy(id=1)
 
     return render(request, 'blog/home.html', context)
 
