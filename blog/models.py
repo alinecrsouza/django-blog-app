@@ -9,8 +9,15 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+class Author(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
 class Post(models.Model):
     category = models.ForeignKey(Category)
+    author = models.ForeignKey(Author)
     name = models.CharField(max_length=255)
     content = models.TextField()
     STATUS_CHOICES = (
@@ -22,3 +29,12 @@ class Post(models.Model):
 
     def __str__(self):
         return self.name
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post)
+    author = models.CharField(max_length=255)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.content

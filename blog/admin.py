@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from blog.models import Category, Post
+from blog.models import Category, Post, Author, Comment
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('name', 'status', 'category')
@@ -8,5 +8,7 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ['status', 'category', 'created_at']
 
 admin.site.register(Category)
+admin.site.register(Author)
 admin.site.register(Post, PostAdmin)
+admin.site.register(Comment)
 
