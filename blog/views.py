@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 
-from blog.models import Category, Post
+from blog.models import Category, Post, Comment
 
 def home(request):
     all_categories = Category.objects.all()
@@ -36,3 +36,14 @@ def show_posts_by_category(request, category_id):
         'category': category,
     }
     return render(request, 'blog/home.html', context)
+
+def show_post(request, post_id):
+    all_categories = Category.objects.all()
+    post = Post.objects.get(pk = post_id)
+    comments = Comment.objects.filter(post = post)
+    context ={
+        'comments': comments,
+        'categories': all_categories,
+        'post': post,
+    }
+    return render(request, 'blog/post.html', context)

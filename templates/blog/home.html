@@ -18,8 +18,8 @@
         <hr>
         <!--<img class="img-responsive" src="http://placehold.it/900x300" alt="">
         <hr>-->
-        <p>{{ post.content}}</p>
-        <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+        <p>{{ post.content|safe|truncatewords_html:"50"|linebreaks }}</p>
+        <a class="btn btn-primary" href="{% url 'blog.post' post.pk %}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
     </article>
     {% endfor %}
 </section>
