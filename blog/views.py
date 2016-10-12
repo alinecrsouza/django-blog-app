@@ -1,6 +1,10 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
+from django.urls import reverse
+from .forms import CommentForm
+
+
 
 from blog.models import Category, Post, Comment
 
@@ -41,9 +45,41 @@ def show_post(request, post_id):
     all_categories = Category.objects.all()
     post = Post.objects.get(pk = post_id)
     comments = Comment.objects.filter(post = post)
+
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = CommentForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            # optional HttpResponseRedirect here
+            return HttpResponseRedirect(reverse('blog.post', args=(post.id,)))
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = CommentForm()
+
     context ={
         'comments': comments,
         'categories': all_categories,
         'post': post,
+        'form': form,
     }
     return render(request, 'blog/post.html', context)
+
+# def get_comment(request):
+#     # if this is a POST request we need to process the form data
+#     if request.method == 'POST':
+#         # create a form instance and populate it with data from the request:
+#         form = CommentForm(request.POST)
+#         # check whether it's valid:
+#         if form.is_valid():
+#             form.save()
+#             return HttpResponseRedirect('blog/post.html')
+#     # if a GET (or any other method) we'll create a blank form
+#     else:
+#         form = CommentForm()
+#
+#     return render(request, 'blog/post.html', {'form': form})

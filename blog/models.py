@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
@@ -17,7 +18,7 @@ class Author(models.Model):
 
 class Post(models.Model):
     category = models.ForeignKey(Category)
-    author = models.ForeignKey(Author)
+    author = models.ForeignKey(Author, default = 1)
     name = models.CharField(max_length=255)
     content = models.TextField()
     STATUS_CHOICES = (
@@ -38,3 +39,8 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+# class CommentForm(ModelForm):
+#     class Meta:
+#         model = Comment
+#         fields = ['post', 'author', 'content']
