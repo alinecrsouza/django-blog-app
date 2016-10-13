@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from .forms import CommentForm
 
@@ -55,7 +55,6 @@ def show_post(request, post_id):
             comment = form.save(commit=False)
             comment.post = post
             comment.save()
-            # optional HttpResponseRedirect here
             return HttpResponseRedirect(reverse('blog.post', args=(post.id,)))
     # if a GET (or any other method) we'll create a blank form
     else:
