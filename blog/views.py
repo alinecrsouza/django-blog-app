@@ -4,9 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from .forms import CommentForm
 
-
-
-from blog.models import Category, Post, Comment
+from blog.models import Category, Post, Comment, Author
 
 def home(request):
     all_categories = Category.objects.all()
@@ -33,11 +31,46 @@ def home(request):
 def show_posts_by_category(request, category_id):
     all_categories = Category.objects.all()
     category = Category.objects.get(pk = category_id)
-    posts = Post.objects.filter(category = category, status = 'Published')
+    posts_list = Post.objects.filter(category = category, status = 'Published').order_by('-created_at')
+    paginator = Paginator(posts_list, 3)  # Show 3 posts per page
+
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        posts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        posts = paginator.page(paginator.num_pages)
+
     context ={
         'posts': posts,
         'categories': all_categories,
         'category': category,
+    }
+    return render(request, 'blog/home.html', context)
+
+def show_posts_by_author(request, author_id):
+    all_categories = Category.objects.all()
+    author = Author.objects.get(pk = author_id)
+    posts_list = Post.objects.filter(author = author, status = 'Published').order_by('-created_at')
+    paginator = Paginator(posts_list, 3)  # Show 3 posts per page
+
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        posts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        posts = paginator.page(paginator.num_pages)
+
+    context ={
+        'posts': posts,
+        'categories': all_categories,
+        'author': author,
     }
     return render(request, 'blog/home.html', context)
 
@@ -67,18 +100,3 @@ def show_post(request, post_id):
         'form': form,
     }
     return render(request, 'blog/post.html', context)
-
-# def get_comment(request):
-#     # if this is a POST request we need to process the form data
-#     if request.method == 'POST':
-#         # create a form instance and populate it with data from the request:
-#         form = CommentForm(request.POST)
-#         # check whether it's valid:
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect('blog/post.html')
-#     # if a GET (or any other method) we'll create a blank form
-#     else:
-#         form = CommentForm()
-#
-#     return render(request, 'blog/post.html', {'form': form})
