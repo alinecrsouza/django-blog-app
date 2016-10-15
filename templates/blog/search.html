@@ -13,7 +13,7 @@
             <a href="{% url 'blog.post' post.pk %}">{{ post.name }}</a>
         </h2>
         <p class="lead">
-            by <a href="{% url 'blog.posts_by_author' post.author.pk %}">{{ post.author }}</a>
+            by {{ post.author }}
         </p>
         <p><span class="glyphicon glyphicon-time"></span> Created on {{ post.created_at|date:"F d, Y"}} at {{ post.created_at|time:"h:i A"}}</p>
         <hr>

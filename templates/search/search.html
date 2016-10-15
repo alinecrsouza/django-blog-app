@@ -1,0 +1,50 @@
+{% extends "blog/layout.html" %}
+
+{% block content %}
+<h2>Search</h2>
+
+{% if query %}
+<h3>Results</h3>
+
+<section>
+    <article>
+        {% for result in page.object_list %}
+        <h2>
+            <a href="{% url 'blog.post' result.object.pk %}">{{ result.object.name }}</a>
+        </h2>
+        <p class="lead">
+            by <a href="{% url 'blog.posts_by_author' result.object.author.pk %}">{{ result.object.author }}</a>
+        </p>
+        <p><span class="glyphicon glyphicon-time"></span> Created on {{ result.object.created_at|date:"F d, Y" }} at {{ result.object.created_at|time:"h:i A" }}</p>
+        <hr>
+        <!--<img class="img-responsive" src="http://placehold.it/900x300" alt="">
+        <hr>-->
+        <p>{{ result.object.content|safe|truncatewords_html:"50"|linebreaks }}</p>
+        <a class="btn btn-primary" href="{% url 'blog.post' result.object.pk %}">Read More <span
+                class="glyphicon glyphicon-chevron-right"></span></a>
+        {% empty %}
+        <p>No results found.</p>
+        {% endfor %}
+        <!-- Pager -->
+        <ul class="pager">
+            {% if page.has_previous or page.has_next %}
+            <div>
+                {% if page.has_previous %}
+                <li class="previus">
+                    <a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">&larr; Older</a>
+                </li>
+                {% endif %}
+                {% if page.has_next %}
+                <li class="next">
+                    <a href="?q={{ query }}&amp;page={{ page.next_page_number }}">Newer &rarr;</a>
+                </li>
+                {% endif %}
+            </div>
+            {% endif %}
+        </ul>
+
+        {% endif %}
+    </article>
+</section>
+
+{% endblock %}

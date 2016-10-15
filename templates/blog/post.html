@@ -7,7 +7,7 @@
 
 <!-- Author -->
 <p class="lead">
-    by <a href="#">{{ post.author }}</a>
+    by <a href="{% url 'blog.posts_by_author' post.author.id %}">{{ post.author }}</a>
 </p>
 
 {{ msg }}

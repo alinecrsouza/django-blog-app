@@ -1,0 +1,51 @@
+{% extends "blog/layout.html" %}
+{% block content %}
+<!-- About -->
+
+<!-- Title -->
+<h1>Contact</h1>
+
+<hr>
+
+<!-- Contact Form -->
+<section id="contact" class="row row-content">
+    <div class="col-xs-12 col-xs-offset-1">
+        <div class="row">
+            <p>Want to get in touch with me? Just fill the form below and I’ll reply back as soon as
+                possible. Cheers!</p>
+            <p style="padding:10px;"></p>
+            <div class="col-xs-12 col-sm-10">
+                <form id="contact-form" action="#" method="post" role="form">
+                    <div class="form-group">
+                        <label for="Name">Name:</label>
+                        <input type="text" name="Name" id="Name" class="form-control" placeholder="Enter your name"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Email">Email:</label>
+                        <input type="email" name="Email" id="Email" class="form-control" placeholder="Enter your email"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Message">Message:</label>
+                        <textarea name="Message" id="Message" class="form-control" cols="30" rows="6"
+                                  placeholder="Enter your message" required></textarea>
+                    </div>
+                    <!-- CONFIG -->
+                    <input style="display:none" type="text" name="_gotcha">
+                    <input type="hidden" name="_subject" value="New submission!">
+                    <input type="hidden" name="_cc" value="email@cc.com">
+                    <!-- /CONFIG -->
+                    <div class="form-group">
+                        <input class="submit btn btn-default" type="submit" value="Send">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr>
+{% endblock %}
+
+

@@ -1,8 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, render_to_response
 from django.urls import reverse
-from .forms import CommentForm
+from .forms import CommentForm, PostsSearchForm
 
 from blog.models import Category, Post, Comment, Author
 
@@ -10,6 +10,8 @@ def home(request):
     all_categories = Category.objects.all()
     posts_list = Post.objects.filter(status='Published').order_by('-created_at')
     paginator = Paginator(posts_list, 3)  # Show 3 posts per page
+
+    msg = 'I enter in the wrong view'
 
     page = request.GET.get('page')
     try:
@@ -24,9 +26,18 @@ def home(request):
     context = {
         'categories': all_categories,
         'posts': posts,
+        'msg': msg,
     }
 
     return render(request, 'blog/home.html', context)
+
+def about(request):
+    all_categories = Category.objects.all()
+    return render(request, 'blog/about.html', {'categories': all_categories})
+
+def contact(request):
+    all_categories = Category.objects.all()
+    return render(request, 'blog/contact.html', {'categories': all_categories})
 
 def show_posts_by_category(request, category_id):
     all_categories = Category.objects.all()
@@ -100,3 +111,15 @@ def show_post(request, post_id):
         'form': form,
     }
     return render(request, 'blog/post.html', context)
+
+def posts_search(request):
+    all_categories = Category.objects.all()
+    form = PostsSearchForm(request.GET)
+    posts = form.search()
+    msg = "I enter on the right view"
+    context = {
+        'categories': all_categories,
+        'posts': posts,
+        'msg': msg,
+    }
+    return render_to_response('blog/search.html', context)

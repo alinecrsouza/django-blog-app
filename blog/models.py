@@ -1,5 +1,6 @@
 from django.db import models
 from django.forms import ModelForm
+from django.core import urlresolvers
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
