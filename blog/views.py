@@ -7,11 +7,8 @@ from .forms import CommentForm, PostsSearchForm
 from blog.models import Category, Post, Comment, Author
 
 def home(request):
-    all_categories = Category.objects.all()
     posts_list = Post.objects.filter(status='Published').order_by('-created_at')
     paginator = Paginator(posts_list, 3)  # Show 3 posts per page
-
-    msg = 'I enter in the wrong view'
 
     page = request.GET.get('page')
     try:
@@ -24,23 +21,18 @@ def home(request):
         posts = paginator.page(paginator.num_pages)
 
     context = {
-        'categories': all_categories,
         'posts': posts,
-        'msg': msg,
     }
 
     return render(request, 'blog/home.html', context)
 
 def about(request):
-    all_categories = Category.objects.all()
-    return render(request, 'blog/about.html', {'categories': all_categories})
+    return render(request, 'blog/about.html')
 
 def contact(request):
-    all_categories = Category.objects.all()
-    return render(request, 'blog/contact.html', {'categories': all_categories})
+    return render(request, 'blog/contact.html')
 
 def show_posts_by_category(request, category_id):
-    all_categories = Category.objects.all()
     category = Category.objects.get(pk = category_id)
     posts_list = Post.objects.filter(category = category, status = 'Published').order_by('-created_at')
     paginator = Paginator(posts_list, 3)  # Show 3 posts per page
@@ -57,13 +49,11 @@ def show_posts_by_category(request, category_id):
 
     context ={
         'posts': posts,
-        'categories': all_categories,
         'category': category,
     }
     return render(request, 'blog/home.html', context)
 
 def show_posts_by_author(request, author_id):
-    all_categories = Category.objects.all()
     author = Author.objects.get(pk = author_id)
     posts_list = Post.objects.filter(author = author, status = 'Published').order_by('-created_at')
     paginator = Paginator(posts_list, 3)  # Show 3 posts per page
@@ -80,13 +70,11 @@ def show_posts_by_author(request, author_id):
 
     context ={
         'posts': posts,
-        'categories': all_categories,
         'author': author,
     }
     return render(request, 'blog/home.html', context)
 
 def show_post(request, post_id):
-    all_categories = Category.objects.all()
     post = Post.objects.get(pk = post_id)
     comments = Comment.objects.filter(post = post)
 
@@ -105,21 +93,9 @@ def show_post(request, post_id):
         form = CommentForm()
 
     context ={
-        'comments': comments,
-        'categories': all_categories,
+        'comments': comments,        
         'post': post,
         'form': form,
     }
     return render(request, 'blog/post.html', context)
 
-def posts_search(request):
-    all_categories = Category.objects.all()
-    form = PostsSearchForm(request.GET)
-    posts = form.search()
-    msg = "I enter on the right view"
-    context = {
-        'categories': all_categories,
-        'posts': posts,
-        'msg': msg,
-    }
-    return render_to_response('blog/search.html', context)

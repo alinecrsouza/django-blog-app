@@ -13,6 +13,8 @@
 
     {% load static %}
 
+    {% load blog_categories %}
+
     <!-- Bootstrap Core CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
@@ -95,15 +97,7 @@
                 </form>
             </div>
 
-            <!-- Blog Categories Well -->
-            <div class="well">
-                <h4>Categories</h4>
-                <ul class="list-unstyled">
-                    {% for category in categories %}
-                        <li><a href="{% url 'blog.posts_by_category' category.pk %}">{{category.name}}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
+            {% get_categories %}
 
             <!-- Side Widget Well -->
             <div class="well">
