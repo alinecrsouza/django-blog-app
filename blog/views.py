@@ -81,7 +81,12 @@ def show_posts_by_author(request, author_id):
 
 # show full post, comments, and comment form
 def show_post(request, post_id):
-    post = Post.objects.get(pk = post_id)
+
+    # Excludes posts with draft status
+    query = Post.objects.filter(status = 'Published')
+    post = get_object_or_404(query, pk=post_id)
+
+    #post = Post.objects.get(pk = post_id)
     comments = Comment.objects.filter(post = post)
 
     # if this is a POST request we need to process the form data
