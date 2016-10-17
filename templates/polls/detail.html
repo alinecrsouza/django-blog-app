@@ -1,0 +1,13 @@
+{% extends "blog/layout.html" %}
+{% block content %}
+<!-- Error message -->
+
+{% if error_message %}
+
+<div class="alert alert-warning">
+  <strong>Warning!</strong> {{ error_message }}
+</div>
+
+{% endif %}
+
+{% endblock %}

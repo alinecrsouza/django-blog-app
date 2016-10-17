@@ -1,0 +1,23 @@
+<!-- Poll Well -->
+
+<div class="well">
+    <h4>Poll</h4>
+
+    <h5>{{ question.question_text }}</h5>
+
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+        <!--  Use this template tag in all forms Django comes with a very easy-to-use system for protecting against Cross Site Request Forgeries -->
+        {% csrf_token %}
+        <ul class="list-group">
+            {% for choice in question.choice_set.all %}
+            <li class="list-group-item">
+                <div class="radio">
+                    <label><input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}"/>{{ choice.choice_text }}</label>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <input type="submit" class="btn btn-primary" value="Vote"/>
+    </form>
+
+</div>

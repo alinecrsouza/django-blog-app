@@ -2,10 +2,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404, render, render_to_response
 from django.urls import reverse
-from .forms import CommentForm, PostsSearchForm
+from .forms import CommentForm
 
 from blog.models import Category, Post, Comment, Author
 
+# the home/index page of the blog
 def home(request):
     posts_list = Post.objects.filter(status='Published').order_by('-created_at')
     paginator = Paginator(posts_list, 3)  # Show 3 posts per page
@@ -26,12 +27,15 @@ def home(request):
 
     return render(request, 'blog/home.html', context)
 
+# about page
 def about(request):
     return render(request, 'blog/about.html')
 
+# contact page
 def contact(request):
     return render(request, 'blog/contact.html')
 
+# show published posts by category ordered by date of creation descending
 def show_posts_by_category(request, category_id):
     category = Category.objects.get(pk = category_id)
     posts_list = Post.objects.filter(category = category, status = 'Published').order_by('-created_at')
@@ -53,6 +57,7 @@ def show_posts_by_category(request, category_id):
     }
     return render(request, 'blog/home.html', context)
 
+# show published posts by author ordered by date of creation descending
 def show_posts_by_author(request, author_id):
     author = Author.objects.get(pk = author_id)
     posts_list = Post.objects.filter(author = author, status = 'Published').order_by('-created_at')
@@ -74,6 +79,7 @@ def show_posts_by_author(request, author_id):
     }
     return render(request, 'blog/home.html', context)
 
+# show full post, comments, and comment form
 def show_post(request, post_id):
     post = Post.objects.get(pk = post_id)
     comments = Comment.objects.filter(post = post)
@@ -85,6 +91,7 @@ def show_post(request, post_id):
         # check whether it's valid:
         if form.is_valid():
             comment = form.save(commit=False)
+            # assign the post to the comment.post foreign key
             comment.post = post
             comment.save()
             return HttpResponseRedirect(reverse('blog.post', args=(post.id,)))

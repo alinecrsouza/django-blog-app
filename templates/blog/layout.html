@@ -11,9 +11,12 @@
 
     <title>GoGeek</title>
 
+    <!-- Load Static Folder: Css, fonts, Javascript -->
     {% load static %}
 
+    <!-- Load the Template Tags-->
     {% load blog_categories %}
+    {% load blog_poll %}
 
     <!-- Bootstrap Core CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
@@ -23,6 +26,9 @@
 
     <!-- Font Awesome CDN link -->
     <script src="https://use.fontawesome.com/3c7ff3412a.js"></script>
+
+    <!-- Favicon Icon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -97,14 +103,12 @@
                 </form>
             </div>
 
+            <!-- Include categories.html by the get_categories template tag -->
             {% get_categories %}
 
-            <!-- Side Widget Well -->
-            <div class="well">
-                <h4>Side Widget Well</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus
-                    laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
-            </div>
+            <!-- Include poll.html by the get_poll template tag -->
+            {% get_poll %}
+
 
         </div>
 

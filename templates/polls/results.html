@@ -1,0 +1,35 @@
+{% extends "blog/layout.html" %}
+{% block content %}
+<!-- Poll Results -->
+
+<!-- Load the Template Tags-->
+{% load blog_poll %}
+
+<!-- Title -->
+<h1>Results</h1>
+
+<hr>
+
+<h2>{{ question.question_text }}</h2>
+
+<br>
+
+<div class="row row-content">
+    <div class="col-md-10 col-xs-12">
+        {% for choice in question.choice_set.all %}
+        <!-- get the percentage of votes of the choice and stores at the 'percentage' variable -->
+        {% get_percentage question.pk choice.pk as percentage %}
+        <strong>{{ choice.choice_text }}</strong><span class="pull-right">{{ percentage|floatformat }}% | {{ choice.votes }} vote{{ choice.votes|pluralize }}</span>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="70"
+                 aria-valuemin="0" aria-valuemax="100" style="width:{{ percentage|floatformat }}%">
+                <span class="sr-only">{{ percentage|floatformat }}% | {{ choice.votes }} vote{{ choice.votes|pluralize }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+<hr>
+{% endblock %}

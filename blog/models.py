@@ -40,8 +40,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
-
-# class CommentForm(ModelForm):
-#     class Meta:
-#         model = Comment
-#         fields = ['post', 'author', 'content']

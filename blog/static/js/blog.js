@@ -1,3 +1,5 @@
+//Blog Custom Javascript
+
 //function to hide my email address from spambots
 var mail = function(){
   var parts = ["&#108;&#105;&#110;&#101;&#99;&#114;&#115;&#111;&#117;&#122;&#97;", "gmail", "com", "&#46;", "&#64;", "//formspree.io/"];

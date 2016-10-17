@@ -1,4 +1,5 @@
 from django.conf.urls import url, include
+from django.views.generic import RedirectView
 
 from blog import views
 
@@ -9,6 +10,9 @@ urlpatterns = [
     url(r'category/(?P<category_id>\d+)/$', views.show_posts_by_category, name='blog.posts_by_category'),
     url(r'author/(?P<author_id>\d+)/$', views.show_posts_by_author, name='blog.posts_by_author'),
     url(r'post/(?P<post_id>\d+)/$', views.show_post, name='blog.post'),
-    # url(r'^search/$', views.posts_search, name='blog.posts.search'),
     url(r'^search/', include('haystack.urls')),
+    # The index and Detail views of the Poll App are not used, so the urls are redirected to /blog/ (home)
+    url(r'^polls/$', RedirectView.as_view(url='/blog/')),
+    url(r'^polls/(\d+)/$', RedirectView.as_view(url='/blog/')),
+    url(r'^polls/', include('polls.urls')),
 ]

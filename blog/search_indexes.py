@@ -2,7 +2,9 @@ import datetime
 from haystack import indexes
 from .models import Post
 
-
+# SearchIndex for Post
+# SearchIndex objects are the way Haystack determines what data should be placed in the search
+# index and handles the flow of data in.
 class PostIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     name = indexes.CharField(model_attr='name')
