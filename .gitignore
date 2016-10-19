@@ -8,3 +8,6 @@ Homestead.yaml
 
 #netbeans specific
 /nbproject
+
+*.pyc
+staticfiles
