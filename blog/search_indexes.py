@@ -1,6 +1,6 @@
 import datetime
 from haystack import indexes
-from .models import Post
+from blog.models import Post
 
 # SearchIndex for Post
 # SearchIndex objects are the way Haystack determines what data should be placed in the search

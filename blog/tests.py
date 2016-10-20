@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import Post, Comment, Category, Author
+from blog.models import Post, Comment, Category, Author
 from polls.models import Question, Choice
 
 # Functions to create objects for the tests

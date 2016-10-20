@@ -1,6 +1,6 @@
 from django.forms import ModelForm, Textarea, TextInput
 from haystack.forms import SearchForm
-from .models import Comment
+from blog.models import Comment
 
 # Form to include comments to a post
 class CommentForm(ModelForm):
