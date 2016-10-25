@@ -1,7 +1,7 @@
 dj-database-url==0.4.1
 Django==1.10.2
 django-haystack==2.5.0
-django-polls==0.1
+git+https://github.com/alinecrsouza/django-polls-app.git
 elasticsearch==2.4.0
 gunicorn==19.6.0
 psycopg2==2.6.2
