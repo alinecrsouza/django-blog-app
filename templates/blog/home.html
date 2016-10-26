@@ -16,8 +16,7 @@
             <p class="lead">
                 by <a href="{% url 'blog.posts_by_author' post.author.pk %}">{{ post.author }}</a>
             </p>
-            <p><span class="glyphicon glyphicon-time"></span> Created on {{ post.created_at|date:"F d, Y"}} at {{
-                post.created_at|time:"h:i A"}}</p>
+            <p><span class="glyphicon glyphicon-time"></span> Created on {{ post.created_at|date:"F d, Y"}} at {{post.created_at|time:"h:i A"}}</p>
             <hr>
             <!--<img class="img-responsive" src="http://placehold.it/900x300" alt="">
             <hr>-->
