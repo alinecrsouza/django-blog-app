@@ -82,22 +82,10 @@ WSGI_APPLICATION = 'blog_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dc4gmtg6qptv00',
-        'USER': 'mloseclcxlphib',
-        'PASSWORD': 'Qin5fn9DytAoNcxGPf_5w-9EEW',
-        'HOST': 'ec2-54-225-101-191.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
 
 
 # Update database configuration with $DATABASE_URL.
