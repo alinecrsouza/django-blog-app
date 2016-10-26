@@ -166,7 +166,7 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 #     },
 # }
 
-es = urlparse(os.environ.get('https://paas:daefa8a29bea46c36d2c60b8eba2a5ed@dori-us-east-1.searchly.com?key=daefa8a29bea46c36d2c60b8eba2a5ed') or 'http://127.0.0.1:9200/')
+es = urlparse(os.environ.get('SEARCHBOX_URL') or 'http://127.0.0.1:9200/')
 
 port = es.port or 80
 
