@@ -9,9 +9,14 @@ register = template.Library()
 # render a random poll in poll.html
 @register.inclusion_tag('blog/poll.html')
 def get_poll(self=None):
-    return {
-        'question': Question.objects.all()[randint(0, Question.objects.count() - 1)],
-    }
+    if Question.objects.count() > 0:
+        return {
+            'question': Question.objects.all()[randint(0, Question.objects.count() - 1)],
+        }
+    else:
+        return {
+            'question': None
+        }
 
 # calculate the percentage of votes of each question's choice
 @register.simple_tag

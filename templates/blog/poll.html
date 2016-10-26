@@ -2,7 +2,7 @@
 
 <div class="well">
     <h4>Poll</h4>
-
+    {% if question %}
     <h5>{{ question.question_text }}</h5>
 
     <form action="{% url 'polls:vote' question.id %}" method="post">
@@ -19,5 +19,8 @@
         </ul>
         <input type="submit" class="btn btn-primary" value="Vote"/>
     </form>
+    {% else %}
+    <p>No questions are available.</p>
+    {% endif %}
 
 </div>
