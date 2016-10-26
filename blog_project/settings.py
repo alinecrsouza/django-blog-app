@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 import dj_database_url
 
