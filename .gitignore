@@ -11,3 +11,4 @@ Homestead.yaml
 
 *.pyc
 staticfiles
+settings_heroku.py
