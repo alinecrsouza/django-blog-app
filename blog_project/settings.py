@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from urlparse import urlparse
 
 import dj_database_url
 
@@ -157,13 +158,28 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # specifies the haystack search backend
 
+# HAYSTACK_CONNECTIONS = {
+#     'default': {
+#         'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+#         'URL': 'http://127.0.0.1:9200/',
+#         'INDEX_NAME': 'haystack',
+#     },
+# }
+
+es = urlparse(os.environ.get('https://paas:daefa8a29bea46c36d2c60b8eba2a5ed@dori-us-east-1.searchly.com') or 'http://127.0.0.1:9200/')
+
+port = es.port or 80
+
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-        'URL': 'http://127.0.0.1:9200/',
-        'INDEX_NAME': 'haystack',
+        'URL': es.scheme + '://' + es.hostname + ':' + str(port),
+        'INDEX_NAME': 'documents',
     },
 }
+
+if es.username:
+    HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": es.username + ':' + es.password}
 
 # enable signal processor that for every change in the models will run update_index
 
