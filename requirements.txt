@@ -1,5 +1,5 @@
 dj-database-url==0.4.1
-Django==1.10.2
+Django==1.11.28
 django-haystack==2.5.0
 git+https://github.com/alinecrsouza/django-polls-app.git
 elasticsearch==2.4.0
