@@ -5,5 +5,5 @@ git+https://github.com/alinecrsouza/django-polls-app.git
 elasticsearch==2.4.0
 gunicorn==19.6.0
 psycopg2==2.6.2
-urllib3==1.18
+urllib3==1.26.5
 whitenoise==3.2.2
